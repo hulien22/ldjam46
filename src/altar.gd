@@ -35,3 +35,21 @@ func pickup():
 		set_collision_layer_bit(4, false)
 		set_collision_layer_bit(5, true)
 		$FireChild.visible = false
+
+func enable_runes(val):
+	$Runes.visible = val
+
+func play_victory():
+	set_collision_layer_bit(4, false)
+	$VictoryCam.current = true
+	$Light2D.visible = true
+	$Victory.play("Victory")
+	yield($Victory, "animation_finished")
+	$Thanks.visible = true
+	get_tree().paused = true
+	
+
+
+func _on_Menu_pressed():
+	get_tree().paused = false
+	get_tree().change_scene("res://src/menu.tscn")

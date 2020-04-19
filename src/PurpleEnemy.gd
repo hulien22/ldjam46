@@ -12,6 +12,8 @@ func _ready():
 	speed = 50
 
 func destroy():
+	GameGlobals.TOTAL_ENEMIES -= 1
+	GameGlobals.ENEMIES_KILLED += 1
 	queue_free()
 
 func _on_Hitbox_area_entered(area):

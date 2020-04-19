@@ -1,11 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/godot.png" type="Texture" id=1]
-[ext_resource path="res://assets/fonts/8bit.ttf" type="DynamicFontData" id=2]
-
-[sub_resource type="DynamicFont" id=1]
-size = 18
-font_data = ExtResource( 2 )
+[ext_resource path="res://assets/fonts/font.tres" type="DynamicFont" id=2]
+[ext_resource path="res://src/intro.gd" type="Script" id=3]
 
 [sub_resource type="Animation" id=2]
 resource_name = "text"
@@ -16,6 +13,34 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 10.3, 12.3, 15, 18, 19.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0, 129, 129, 140, 140, 180 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/keys = {
+"times": PoolRealArray( 16.1, 19.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "fade"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible_characters")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
 tracks/0/keys = {
 "times": PoolRealArray( 0, 10.3, 12.3, 15 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
@@ -29,13 +54,14 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 16.1, 19.9 ),
+"times": PoolRealArray( 0, 4 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[node name="Node2D" type="Node2D"]
+[node name="Intro" type="Node2D"]
+script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
 self_modulate = Color( 0, 0, 0, 1 )
@@ -49,7 +75,7 @@ margin_left = -32.0
 margin_top = 160.0
 margin_right = 1014.0
 margin_bottom = 456.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = ExtResource( 2 )
 text = "The world has been cursed and plunged into darkness...
 
 
@@ -62,7 +88,11 @@ To assist you, I have sent you a child of the light...
 
 
 
-KEEP IT ALIVE"
+KEEP IT ALIVE
+
+
+
+(Press space to continue)"
 align = 1
 valign = 1
 percent_visible = 0.0
@@ -70,6 +100,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Label"]
-autoplay = "text"
+[node name="Text" type="AnimationPlayer" parent="Label"]
 anims/text = SubResource( 2 )
+
+[node name="FadeOut" type="AnimationPlayer" parent="Label"]
+anims/fade = SubResource( 3 )
+
+[node name="AcceptKeystrokesTimer" type="Timer" parent="."]
+one_shot = true
+[connection signal="timeout" from="AcceptKeystrokesTimer" to="." method="_on_AcceptKeystrokes_timeout"]

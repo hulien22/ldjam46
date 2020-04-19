@@ -13,3 +13,4 @@ func placeOrb():
 	$Body/Glyphs.frame = 1
 	$Body/Orb.visible = true
 	set_collision_layer_bit(5, false)
+	GameGlobals.ORBS_PLACED += 1

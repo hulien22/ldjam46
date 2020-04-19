@@ -20,12 +20,14 @@ func _on_Spawner_body_exited(body):
 func _on_SpawnTimer_timeout():
 	$SpawnTimer.stop()
 	if canSpawn:
-		var newEnemy = Enemy.instance()
-		get_parent().add_child(newEnemy)
-		newEnemy.scale = Vector2(spawnSize,spawnSize)
-		newEnemy.speed = spawnSpeed
-		newEnemy.health = spawnHealth
-		newEnemy.global_position = global_position
-		print(newEnemy.scale, newEnemy.speed, newEnemy.health)
+		if GameGlobals.TOTAL_ENEMIES < GameGlobals.MAX_ENEMIES:
+			GameGlobals.TOTAL_ENEMIES += 1
+			var newEnemy = Enemy.instance()
+			get_parent().add_child(newEnemy)
+			newEnemy.scale = Vector2(spawnSize,spawnSize)
+			newEnemy.speed = spawnSpeed
+			newEnemy.health = spawnHealth
+			newEnemy.global_position = global_position
+			print(newEnemy.scale, newEnemy.speed, newEnemy.health)
 		# go again
-		$SpawnTimer.start(randi() % 10 + 20)
+		$SpawnTimer.start(randi() % 10 + 25)

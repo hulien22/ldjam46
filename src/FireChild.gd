@@ -16,8 +16,7 @@ func hasFireChild():
 
 func setFire(fl):
 	if fl == 0:
-		# TODO game over logic
-		print("GAME OVER")
+		GameGlobals.FIRE_LEVEL = 0
 	elif fl == 0.25:
 		setFireVeryLow()
 	elif fl == 0.5:
@@ -37,6 +36,7 @@ func setFireVeryLow():
 	$Body/meh.stop()
 	$Body/sad.play("sad")
 	$Fire.scale = Vector2(fire_level, fire_level)
+	GameGlobals.FIRE_LEVEL = fire_level
 	
 func setFireLow():
 	fire_level = 0.5
@@ -44,6 +44,7 @@ func setFireLow():
 	$Body/meh.stop()
 	$Body/sad.play("sad")
 	$Fire.scale = Vector2(fire_level, fire_level)
+	GameGlobals.FIRE_LEVEL = fire_level
 
 func setFireLowMedium():
 	fire_level = 0.75
@@ -51,6 +52,7 @@ func setFireLowMedium():
 	$Body/sad.stop()
 	$Body/meh.play("meh")
 	$Fire.scale = Vector2(fire_level, fire_level)
+	GameGlobals.FIRE_LEVEL = fire_level
 
 func setFireMedium():
 	fire_level = 1
@@ -58,6 +60,7 @@ func setFireMedium():
 	$Body/sad.stop()
 	$Body/meh.play("meh")
 	$Fire.scale = Vector2(fire_level, fire_level)
+	GameGlobals.FIRE_LEVEL = fire_level
 
 func setFireMediumHigh():
 	fire_level = 1.25
@@ -65,6 +68,7 @@ func setFireMediumHigh():
 	$Body/sad.stop()
 	$Body/happy.play("happy")
 	$Fire.scale = Vector2(fire_level, fire_level)
+	GameGlobals.FIRE_LEVEL = fire_level
 
 func setFireHigh():
 	fire_level = 1.5
@@ -72,6 +76,7 @@ func setFireHigh():
 	$Body/sad.stop()
 	$Body/happy.play("happy")
 	$Fire.scale = Vector2(fire_level, fire_level)
+	GameGlobals.FIRE_LEVEL = fire_level
 
 func lowerFire():
 	setFire(fire_level - 0.25)
@@ -97,9 +102,11 @@ func _on_Hitbox_body_entered(body):
 		var dir = (self.position - body.position).normalized()
 		accelDir = dir
 		accelVal = 200*10
+		body.accelDir = - accelDir
+		body.accelVal = body.speed * 4 * 10
 
 func _physics_process(delta):
-	var velocity = accelVal * accelDir
+	var velocity = (accelVal / 10) * accelDir
 	move_and_slide(velocity)
 	# update accel
 	if accelVal > 0:

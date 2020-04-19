@@ -22,3 +22,6 @@ texture = ExtResource( 1 )
 position = Vector2( 0.203911, -6.93282 )
 rotation = 1.57079
 shape = SubResource( 1 )
+
+[node name="DecayTimer" type="Timer" parent="."]
+[connection signal="timeout" from="DecayTimer" to="." method="_on_DecayTimer_timeout"]
