@@ -1,0 +1,82 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/PedestalGlyphs.png" type="Texture" id=1]
+[ext_resource path="res://assets/Pedestal1.png" type="Texture" id=2]
+[ext_resource path="res://assets/orb.png" type="Texture" id=3]
+[ext_resource path="res://src/Pedestal.gd" type="Script" id=4]
+[ext_resource path="res://assets/light2.png" type="Texture" id=5]
+
+[sub_resource type="Animation" id=1]
+resource_name = "GlyphGlow"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.509804 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Orb:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -41.8863 ), Vector2( 0, -44.886 ), Vector2( 0, -41.8863 ) ]
+}
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 12.3719
+height = 6.1681
+
+[node name="Pedestal" type="StaticBody2D"]
+collision_layer = 33
+collision_mask = 15
+script = ExtResource( 4 )
+
+[node name="Body" type="Sprite" parent="."]
+position = Vector2( 0, -52.4103 )
+texture = ExtResource( 2 )
+
+[node name="Orb" type="Sprite" parent="Body"]
+visible = false
+position = Vector2( 0, -41.8863 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+
+[node name="Light2D" type="Light2D" parent="Body/Orb"]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 5 )
+mode = 2
+
+[node name="Glyphs" type="Sprite" parent="Body"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 1 )
+hframes = 3
+region_enabled = true
+region_rect = Rect2( 0, 0, 96, 64 )
+
+[node name="animation" type="AnimationPlayer" parent="Body/Glyphs"]
+autoplay = "GlyphGlow"
+anims/GlyphGlow = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 1.02396 )
+rotation = 1.57079
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+visible = false
+position = Vector2( 0, -97.7668 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )

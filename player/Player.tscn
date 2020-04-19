@@ -1,17 +1,23 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://assets/BlueBlobRun.png" type="Texture" id=1]
 [ext_resource path="res://player/Player.gd" type="Script" id=2]
 [ext_resource path="res://assets/BlueBlobBody.png" type="Texture" id=3]
 [ext_resource path="res://player/bodyanim.tres" type="Animation" id=4]
 [ext_resource path="res://assets/BlueBlobLegsRun.png" type="Texture" id=5]
-[ext_resource path="res://assets/BlueBlobArms.png" type="Texture" id=6]
+[ext_resource path="res://assets/BlueBlobArmsHold.png" type="Texture" id=6]
 [ext_resource path="res://assets/axe2.png" type="Texture" id=7]
+[ext_resource path="res://assets/light2.png" type="Texture" id=8]
+[ext_resource path="res://assets/orb.png" type="Texture" id=9]
+[ext_resource path="res://src/FireChild.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/BlueBlobArms.png" type="Texture" id=11]
+[ext_resource path="res://assets/Wood.png" type="Texture" id=12]
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 10, 11.0427 )
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 9.12248
+height = 4.68405
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "sprite_anim"
 length = 3.0
 loop = true
@@ -28,7 +34,88 @@ tracks/0/keys = {
 "values": [ 0, 19, 19 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=10]
+resource_name = "armsanim"
+length = 3.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0, 19 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("orb:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.7, 1.5, 2.2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -24.245 ), Vector2( 0, -25.245 ), Vector2( 0, -24.245 ), Vector2( 0, -25.245 ), Vector2( 0, -24.245 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("axe:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.7, 1.5, 2.2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.241, -23.052 ), Vector2( 0.241, -22.552 ), Vector2( 0.241, -23.052 ), Vector2( 0.241, -22.052 ), Vector2( 0.241, -23.052 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("firechild:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.7, 1.5, 2.2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -30.283 ), Vector2( 0, -29.283 ), Vector2( 0, -30.283 ), Vector2( 0, -29.283 ), Vector2( 0, -30.283 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("wood:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.7, 1.5, 2.2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.16, 1.669 ), Vector2( 0.16, 0 ), Vector2( 0.16, 1.669 ), Vector2( 0.16, 0 ), Vector2( 0.16, 1.669 ) ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "swing"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, -360.0 ]
+}
+
+[sub_resource type="Animation" id=3]
 resource_name = "armsanim"
 length = 3.0
 loop = true
@@ -45,7 +132,7 @@ tracks/0/keys = {
 "values": [ 0, 19, 19 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=8]
 resource_name = "armsanimhold"
 length = 1.4
 loop = true
@@ -62,7 +149,7 @@ tracks/0/keys = {
 "values": [ 7, 2, 3, 4, 7, 8, 9 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=5]
 resource_name = "armsanimthrow"
 length = 0.6
 tracks/0/type = "value"
@@ -78,8 +165,7 @@ tracks/0/keys = {
 "values": [ 20, 24, 23, 24, 24 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "legsanim"
+[sub_resource type="Animation" id=6]
 length = 3.0
 loop = true
 tracks/0/type = "value"
@@ -95,14 +181,25 @@ tracks/0/keys = {
 "values": [ 0, 19, 19 ]
 }
 
+[sub_resource type="CapsuleShape2D" id=7]
+radius = 9.55373
+height = 5.36702
+
+[sub_resource type="CapsuleShape2D" id=9]
+radius = 15.5532
+height = 8.32402
+
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 0, 2.56 )
 scale = Vector2( 1.92, 1.92 )
+collision_layer = 2
+collision_mask = 29
 script = ExtResource( 2 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.393081, 3.3177 )
-shape = SubResource( 2 )
+[node name="PlayerCollision" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 6.99958 )
+rotation = 1.57079
+shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 visible = false
@@ -118,28 +215,77 @@ __meta__ = {
 
 [node name="animation" type="AnimationPlayer" parent="Sprite"]
 autoplay = "sprite_anim"
-anims/sprite_anim = SubResource( 3 )
+anims/sprite_anim = SubResource( 2 )
+
+[node name="ArmsHold" type="Sprite" parent="."]
+position = Vector2( -0.228119, -1.05212 )
+texture = ExtResource( 6 )
+offset = Vector2( 0.228119, -16.4217 )
+hframes = 25
+frame = 11
+region_enabled = true
+region_rect = Rect2( 0, 0, 800, 64 )
+
+[node name="armsanim" type="AnimationPlayer" parent="ArmsHold"]
+autoplay = "armsanim"
+anims/armsanim = SubResource( 10 )
+
+[node name="orb" type="Sprite" parent="ArmsHold"]
+visible = false
+position = Vector2( 0, -24.6672 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 9 )
+
+[node name="Light2D" type="Light2D" parent="ArmsHold/orb"]
+visible = false
+position = Vector2( 0, -1.90735e-06 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 8 )
+mode = 2
+
+[node name="axe" type="Sprite" parent="ArmsHold"]
+visible = false
+position = Vector2( 0.241, -22.6298 )
+scale = Vector2( 0.520833, 0.520833 )
+texture = ExtResource( 7 )
+flip_h = true
+
+[node name="firechild" parent="ArmsHold" instance=ExtResource( 10 )]
+visible = false
+position = Vector2( 0, -29.8608 )
+scale = Vector2( 1, 1 )
+
+[node name="swing" type="AnimationPlayer" parent="ArmsHold"]
+anims/swing = SubResource( 11 )
+
+[node name="wood" type="Sprite" parent="ArmsHold"]
+visible = false
+position = Vector2( 0.16, 0.964426 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 12 )
+offset = Vector2( -0.820534, -46.5911 )
 
 [node name="Arms" type="Sprite" parent="."]
+visible = false
 position = Vector2( 0, -3 )
-scale = Vector2( 1, 1 )
-texture = ExtResource( 6 )
+texture = ExtResource( 11 )
 centered = false
 offset = Vector2( -16, -48 )
 hframes = 25
-frame = 24
 region_enabled = true
 region_rect = Rect2( 0, 0, 800, 64 )
 
 [node name="armsanim" type="AnimationPlayer" parent="Arms"]
 autoplay = "armsanim"
-anims/armsanim = SubResource( 5 )
+anims/armsanim = SubResource( 3 )
 
 [node name="armsanimhold" type="AnimationPlayer" parent="Arms"]
-anims/armsanimhold = SubResource( 6 )
+anims/armsanimhold = SubResource( 8 )
 
 [node name="armsanimthrow" type="AnimationPlayer" parent="Arms"]
-anims/armsanimthrow = SubResource( 7 )
+anims/armsanimthrow = SubResource( 5 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Arms"]
 
 [node name="Legs" type="Sprite" parent="."]
 position = Vector2( 0, -18 )
@@ -150,11 +296,10 @@ region_rect = Rect2( 0, 0, 640, 64 )
 
 [node name="legsanim" type="AnimationPlayer" parent="Legs"]
 playback_speed = 1.5
-anims/legsanim = SubResource( 4 )
+anims/legsanim = SubResource( 6 )
 
 [node name="Body" type="Sprite" parent="."]
 position = Vector2( 0, -18 )
-scale = Vector2( 1, 1 )
 texture = ExtResource( 3 )
 hframes = 20
 region_enabled = true
@@ -165,8 +310,42 @@ autoplay = "bodyanim"
 playback_process_mode = 0
 anims/bodyanim = ExtResource( 4 )
 
-[node name="axe2" type="Sprite" parent="."]
-visible = false
-position = Vector2( 0, -24.2501 )
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( 0, 7.09113 )
+rotation = 1.57079
+shape = SubResource( 7 )
+
+[node name="PickupArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+position = Vector2( 0, 7.09502 )
+rotation = 1.57079
+shape = SubResource( 9 )
+
+[node name="PlaceArea" type="Area2D" parent="."]
+scale = Vector2( 1, 1 )
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlaceArea"]
+position = Vector2( 0, 7.09502 )
+rotation = 1.57079
+shape = SubResource( 9 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 0, -1.33334 )
 scale = Vector2( 0.520833, 0.520833 )
-texture = ExtResource( 7 )
+current = true
+limit_smoothed = true
+smoothing_enabled = true
+
+[node name="AttackTimer" type="Timer" parent="."]
+one_shot = true
+[connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]

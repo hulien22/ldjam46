@@ -1,0 +1,97 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/PurpleBaddie.png" type="Texture" id=1]
+[ext_resource path="res://assets/PurpleBaddieEyes1.png" type="Texture" id=2]
+[ext_resource path="res://src/PurpleEnemy.gd" type="Script" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "bop"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../EyesLight:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 1 ), Vector2( 0, 2 ), Vector2( 0, 1 ) ]
+}
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 8.05228
+height = 8.4787
+
+[sub_resource type="Animation" id=4]
+resource_name = "fade"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 10.7144
+height = 9.06947
+
+[node name="PurpleEnemy" type="KinematicBody2D"]
+position = Vector2( 0, -23.2121 )
+scale = Vector2( 1.5, 1.5 )
+collision_layer = 4
+collision_mask = 31
+script = ExtResource( 3 )
+
+[node name="EyesLight" type="Light2D" parent="."]
+texture = ExtResource( 2 )
+mode = 2
+
+[node name="Body" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+hframes = 4
+region_enabled = true
+region_rect = Rect2( 0, 0, 128, 32 )
+
+[node name="Bop" type="AnimationPlayer" parent="Body"]
+autoplay = "bop"
+anims/bop = SubResource( 1 )
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 9.81651 )
+rotation = 1.57079
+shape = SubResource( 2 )
+
+[node name="DeathFade" type="AnimationPlayer" parent="."]
+anims/fade = SubResource( 4 )
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( 0, 9.87339 )
+rotation = 1.57079
+shape = SubResource( 3 )
+[connection signal="animation_finished" from="DeathFade" to="." method="_on_DeathFade_animation_finished"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]

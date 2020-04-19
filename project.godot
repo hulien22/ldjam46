@@ -8,16 +8,81 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "StaticBody2D",
+"class": "Altar",
+"language": "GDScript",
+"path": "res://src/altar.gd"
+}, {
+"base": "Reference",
+"class": "Axe",
+"language": "GDScript",
+"path": "res://src/axe.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "FireChild",
+"language": "GDScript",
+"path": "res://src/FireChild.gd"
+}, {
+"base": "Node",
+"class": "OBJ",
+"language": "GDScript",
+"path": "res://src/obj_enum.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Orb",
+"language": "GDScript",
+"path": "res://src/orb.gd"
+}, {
+"base": "StaticBody2D",
+"class": "Pedestal",
+"language": "GDScript",
+"path": "res://src/Pedestal.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://player/Player.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "PurpleEnemy",
+"language": "GDScript",
+"path": "res://src/PurpleEnemy.gd"
+}, {
+"base": "Area2D",
+"class": "Slash",
+"language": "GDScript",
+"path": "res://src/Slash.gd"
+}, {
+"base": "Area2D",
+"class": "Spawner",
+"language": "GDScript",
+"path": "res://src/Spawner.gd"
+}, {
+"base": "StaticBody2D",
+"class": "Wood",
+"language": "GDScript",
+"path": "res://src/Wood.gd"
+} ]
 _global_script_class_icons={
-
+"Altar": "",
+"Axe": "",
+"FireChild": "",
+"OBJ": "",
+"Orb": "",
+"Pedestal": "",
+"Player": "",
+"PurpleEnemy": "",
+"Slash": "",
+"Spawner": "",
+"Wood": ""
 }
 
 [application]
 
 config/name="ldjam46"
 run/main_scene="res://src/main.tscn"
-config/icon="res://icon.png"
+config/icon="res://assets/icon.png"
 
 [display]
 
@@ -54,8 +119,29 @@ ui_down={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":13,"pressure":0.0,"pressed":false,"script":null)
  ]
 }
+ui_pickup={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_interact={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":90,"unicode":0,"echo":false,"script":null)
+ ]
+}
+
+[layer_names]
+
+2d_physics/layer_1="walls"
+2d_physics/layer_2="player"
+2d_physics/layer_3="enemies"
+2d_physics/layer_4="fire_child"
+2d_physics/layer_5="pickups"
+2d_physics/layer_6="interact"
+2d_physics/layer_7="damage"
 
 [rendering]
 
 quality/2d/use_pixel_snap=true
+environment/default_clear_color=Color( 0.0392157, 0.0313726, 0.0980392, 1 )
 environment/default_environment="res://default_env.tres"
